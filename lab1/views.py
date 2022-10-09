@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import jsonify, request
+from flask import jsonify, request, render_template
 from lab1 import app
 
 
@@ -84,3 +84,7 @@ def get_entries_by_category(user_id, category_id):
         if elem['user_id'] == int(user_id) and elem['category_id'] == int(category_id):
             user_entries.append(elem)
     return jsonify({'entries': user_entries})
+
+@app.get('/')
+def index():
+    return render_template('index.html')
