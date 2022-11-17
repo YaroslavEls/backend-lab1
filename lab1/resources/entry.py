@@ -6,12 +6,14 @@ from flask_smorest import Blueprint, abort
 
 from lab1.bl import *
 from lab1.db import *
+from lab1.schemas import EntrySchema
 
 
 blp = Blueprint('entry', __name__, description='Operations on entries')
 
 @blp.route('/entry')
 class Entry(MethodView):
+    @blp.arguments(EntrySchema)
     def post(self):
         req_data = request.get_json()
         if check(req_data['user_id'], USERS) and check(req_data['category_id'], CATEGORIES):
