@@ -11,10 +11,12 @@ blp = Blueprint('user', __name__, description='Operations on user')
 @blp.route('/user')
 class User(MethodView):
     @blp.arguments(UserSchema)
+    @blp.response(200, UserSchema)
     def post(self, req_data):
         req_data['id'] = USERS[-1]['id'] + 1
         USERS.append(req_data)
         return req_data
 
+    @blp.response(200, UserSchema(many=True))
     def get(self):
         return USERS
