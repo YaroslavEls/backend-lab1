@@ -20,7 +20,7 @@ class User(MethodView):
             db.session.add(user)
             db.session.commit()
         except IntegrityError:
-            abort(400, message='User with such name already exists')
+            abort(400, message='Error while creating new user')
         return user
 
     @blp.response(200, UserSchema(many=True))

@@ -5,6 +5,7 @@ from lab1.db import db
 from lab1.resources.category import blp as CategoryBlueprint
 from lab1.resources.entry import blp as EntryBlueprint
 from lab1.resources.user import blp as UserBlueprint
+from lab1.resources.currency import blp as CurrencyBlueprint
 
 
 app.config["PROPAGATE_EXCEPRIONS"] = True
@@ -27,3 +28,4 @@ with app.app_context():
 api.register_blueprint(CategoryBlueprint)
 api.register_blueprint(EntryBlueprint)
 api.register_blueprint(UserBlueprint)
+api.register_blueprint(CurrencyBlueprint)

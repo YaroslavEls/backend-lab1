@@ -13,6 +13,12 @@ class UserModel(db.Model):
         unique=True,
         nullable=False
     )
+    currency = db.Column(
+        db.String(120),
+        db.ForeignKey('currency.name'),
+        unique=False,
+        nullable=False
+    )
 
     entries = db.relationship(
         'EntryModel',

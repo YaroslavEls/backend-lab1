@@ -31,6 +31,12 @@ class EntryModel(db.Model):
         unique=False,
         nullable=False
     )
+    currency = db.Column(
+        db.String(120),
+        db.ForeignKey('currency.name'),
+        unique=False,
+        nullable=True
+    )
 
     user = db.relationship(
         'UserModel', 
