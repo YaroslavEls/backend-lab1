@@ -1,6 +1,6 @@
 # backend-lab1
 
-Basic REST API for web application
+Вариант для 2-ой лабораторной работы: 1 (валюты)
 
 ## Installation
 1. Make sure you have [Python](https://www.python.org/) and [pip](https://pypi.org/project/pip/) installed on your computer
