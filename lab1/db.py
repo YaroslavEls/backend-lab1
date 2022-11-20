@@ -1,25 +1,13 @@
-from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
 
-USERS = [
-    {
-        'id': 1,
-        'name': 'John'
-    }
-]
+from sqlalchemy.engine import Engine
+from sqlalchemy import event
 
-CATEGORIES = [
-    {
-        'id': 1,
-        'name': 'groceries'
-    }
-]
 
-ENTRIES = [
-    {
-        'id': 1,
-        'user_id': 1,
-        'category_id': 1,
-        'date': datetime.now(),
-        'sum': 150
-    }
-]
+db = SQLAlchemy()
+
+@event.listens_for(Engine, "connect")
+def set_sqlite_pragma(dbapi_connection, connection_record):
+    cursor = dbapi_connection.cursor()
+    cursor.execute("PRAGMA foreign_keys=ON")
+    cursor.close()
