@@ -13,6 +13,11 @@ class UserModel(db.Model):
         unique=True,
         nullable=False
     )
+    password = db.Column(
+        db.String(256),
+        unique=False,
+        nullable=False
+    )
     currency = db.Column(
         db.String(120),
         db.ForeignKey('currency.name'),
