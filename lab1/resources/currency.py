@@ -1,5 +1,6 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
+from flask_jwt_extended import jwt_required
 
 from sqlalchemy.exc import IntegrityError
 
@@ -23,6 +24,7 @@ class Currency(MethodView):
             abort(400, message='Error while creating new currency')
         return currency
 
+    @jwt_required()
     @blp.response(200, CurrencySchema(many=True))
     def get(self):
         return CurrencyModel.query.all()

@@ -7,7 +7,7 @@ from sqlalchemy.exc import IntegrityError
 from passlib.hash import pbkdf2_sha256
 
 from lab1.db import db
-from lab1.schemas import UserSchema, RegistrationSchema, LoginSchema
+from lab1.schemas import UserSchema, RegistrationSchema, LoginSchema, LoginResponseSchema
 from lab1.models.user import UserModel
 
 
@@ -31,13 +31,13 @@ class Registration(MethodView):
 @blp.route('/login')
 class Login(MethodView):
     @blp.arguments(LoginSchema)
-    @blp.response(200, UserSchema)
+    @blp.response(200, LoginResponseSchema)
     def post(self, req_data):
         query = UserModel.query.filter(UserModel.name == req_data['name'])
         user = query.one()
 
         if user and pbkdf2_sha256.verify(req_data['password'], user.password):
-           access_token = create_access_token(identity=user.id)  
+           user.access_token = create_access_token(identity=user.id)  
         else:
             abort(400, message='Wrong user name or password')
         return user

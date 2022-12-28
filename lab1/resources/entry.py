@@ -1,5 +1,6 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
+from flask_jwt_extended import jwt_required
 
 from sqlalchemy.exc import IntegrityError
 
@@ -12,6 +13,7 @@ blp = Blueprint('entry', __name__, description='Operations on entries')
 
 @blp.route('/entry')
 class Entry(MethodView):
+    @jwt_required()
     @blp.arguments(EntrySchema)
     @blp.response(200, EntrySchema)
     def post(self, req_data):
@@ -25,6 +27,7 @@ class Entry(MethodView):
 
 @blp.route('/entries/<int:user_id>')
 class EntriesByUser(MethodView):
+    @jwt_required()
     @blp.response(200, EntrySchema(many=True))
     def get(self, user_id):
         query = EntryModel.query.filter(EntryModel.user_id == user_id)
@@ -32,6 +35,7 @@ class EntriesByUser(MethodView):
 
 @blp.route('/entries/<int:user_id>/<int:category_id>')
 class EntriesByCategory(MethodView):
+    @jwt_required()
     @blp.response(200, EntrySchema(many=True))
     def get(self, user_id, category_id):
         query = EntryModel.query.filter(EntryModel.user_id == user_id)

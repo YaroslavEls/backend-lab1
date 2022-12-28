@@ -30,3 +30,9 @@ class RegistrationSchema(Schema):
 class LoginSchema(Schema):
     name = fields.Str(required=True)
     password = fields.Str(required=True)
+
+class LoginResponseSchema(Schema):
+    id = fields.Int(dump_only=True)
+    name = fields.Str(required=True)
+    currency = fields.Str(required=True)
+    access_token = fields.Str(required=True)
